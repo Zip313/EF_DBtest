@@ -1,0 +1,31 @@
+version: "3.5"
+services:
+  postgres-db:
+    image: postgres
+    mem_limit: 1536MB
+    mem_reservation: 1G
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+    - "5442:5432"
+    networks:
+    - pg_network
+    volumes:
+    - ./db-data:/var/lib/postgresql/data
+  demo-pgadmin4:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@otus.ru
+      PGADMIN_DEFAULT_PASSWORD: pgadmin
+    ports:
+    - "5051:80"
+    networks:
+    - pg_network  
+networks:
+  pg_network: 
+#    external: true
+ 
+volumes:
+  db-data:
+  
